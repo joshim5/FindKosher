@@ -1,0 +1,16 @@
+{
+  "name"         : "FindKosher",
+  "version"      : "0.0.1",
+  "description"  : "Mappable kosher restaurants.",
+  "main"         : "server.js",
+  "author"       : "Joshua Meier",
+  "repository"   : {
+    "type"       : "git",
+    "url"        : "https://github.com/joshim5/FindKosher"
+  },
+  "dependencies" : {
+    "express"    : "latest",
+    "request"    : "latest",
+    "cheerio"    : "latest"
+  }
+}
