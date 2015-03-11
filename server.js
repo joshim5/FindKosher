@@ -10,11 +10,19 @@ var request = require('request');
 var cheerio = require('cheerio');
 var app = express();
 var async = require('async');
+var morgan = require('morgan')
+
+app.use(express.static(__dirname + '/public')); 				// set the static files location /public/img will be /img for users
+app.use(morgan('dev')); 										// log every request to the console
 
 // Database
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var db = mongo.db("mongodb://localhost:27017/findkosher", {native_parser:true});
+//var db = mongoose.db("mongodb://localhost:27017/findkosher", {native_parser:true});
+
+// Routing
+var routes = require('./routes/index');
+app.use('/', routes);
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
@@ -28,6 +36,14 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+// Cron stuff
+var cron = require('cron');
+
+var CronJob = require('cron').CronJob;
+new CronJob('* * * * * *', function(){
+    console.log('You will see this message every second');
+}, null, true, "America/Los_Angeles");
 
 // Main server logic
 app.get('/', function(req, res) {
